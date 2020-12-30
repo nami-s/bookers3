@@ -9,6 +9,12 @@ Rails.application.routes.draw do
   end
 
   devise_for :users
-  resources :users, only: [:show,:index,:edit,:update]
+  resources :users, only: [:show,:index,:edit,:update] do
+    member do
+      get :followeds, :followers
+    end
+  end
+  resources :relationships, only: [:create, :destroy]
+
 
 end

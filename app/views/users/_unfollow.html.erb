@@ -1,0 +1,4 @@
+<%= form_with(model: current_user.followed_relationships.find_by(followd_id: @user.id),method: :delete) do |f| %>
+  <%= f.hidden_field :followed_id %>
+  <%= f.submit "フォロー外す", class: "btn btn-outline-secondary" %>
+<% end %>

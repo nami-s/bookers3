@@ -48,6 +48,17 @@ class BooksController < ApplicationController
     redirect_to books_path
   end
 
+  def followeds
+    @user = User.find(params[:id])
+    render 'show_followeds'
+  end
+
+  def followers
+    @user = User.find(params[:id])
+    render 'show_followers'
+  end
+
+
   private
 
   def book_params
