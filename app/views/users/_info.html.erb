@@ -10,24 +10,26 @@
   </tr>
   <tr>
     <th>follows</th>
-    <th><%= link_to "#{user.followeds.count}", followeds_user_path(user) %></th>
+    <th><%= link_to "#{user.follower.count}", follower_user_path(user) %></th>
   </tr>
   <tr>
     <th>followers</th>
-    <th><%= link_to "#{user.followers.count}", followers_user_path(user) %></th>
+    <th><%= link_to "#{user.followed.count}", followed_user_path(user) %></th>
   </tr>
 </table>
 
-<% if user != current_user%>
-  <div id="follow_form">
-    <% if current_user.following?(user) %>
-      <%= render "unfollow" %>
-    <% else %>
-      <%= render "follow" %>
-    <% end %>
-  </div>
-<% end %>
-
 <div class='row'>
-  <%= link_to '',edit_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{user.id}" %>
+  <% if user == current_user %>
+    <%= link_to '',edit_user_path(user), class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{user.id}" %>
+  <% else %>
+    <% if user_signed_in? %>
+      <% unless @user == current_user %>
+        <% if current_user.following?(@user) %>
+          <%= link_to 'フォロー外す', unfollow_path(@user.id), method: :delete, class: "btn btn-success" %>
+        <% else %>
+          <%= link_to 'フォローする', follow_path(@user.id), method: :post, class: "btn btn-success" %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
 </div>
