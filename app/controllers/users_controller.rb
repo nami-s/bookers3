@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     @books = @user.books
     @book = Book.new
   end
-  
+
 
   def index
     @users = User.all
@@ -25,12 +25,12 @@ class UsersController < ApplicationController
     end
   end
 
-  def following
-    @user  = User.find(params[:id])
+  def followed
+    @user = User.find(params[:id])
   end
 
   def follower
-    @user  = User.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   private
