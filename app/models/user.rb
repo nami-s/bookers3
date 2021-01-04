@@ -24,7 +24,18 @@ class User < ApplicationRecord
   def following?(user_id)
     follower_user.include?(user_id)
   end
-
+  
+  def self.looks(searches, words)
+    if searches == "perfect_match"
+      @user = User.where("name LIKE ?", "#{words}")
+    elsif searches == "forward_match"
+      @user = User.where("name LIKE ?", "#{words}%")
+    elsif searches == "backward_match"
+      @user = User.where("name LIKE ?", "%#{words}")
+    else
+      @user = User.where("name LIKE ?", "%#{words}%")
+    end
+  end
 
   attachment :profile_image, destroy: false
 
